@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.yml": "yaml",
+        "iostream": "cpp"
+    }
+}
