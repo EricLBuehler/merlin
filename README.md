@@ -1,2 +1,2 @@
-# merlin
+# Merlin
 Make your code fly.
