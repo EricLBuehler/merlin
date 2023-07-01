@@ -4,8 +4,10 @@
 
 #include "termcolor/termcolor.hpp"
 
-#include "lexer/lexer.hpp"
+#define TODO throw std::runtime_error(std::string("Unimplemented code at ")+std::string(__FILE__)+std::string(":")+std::to_string(__LINE__)+std::string("."))
 
+#include "lexer/lexer.cpp"
+#include "parser/parser.cpp"
 
 int main(int argc, char** argv) {
     std::string filedata = "program.me";
@@ -16,10 +18,23 @@ int main(int argc, char** argv) {
     }
     
     lexer::Lexer lexer(data);
-    std::vector<lexer::Token> tokens = lexer.generate_tokens();
+    #ifdef DEBUG
+    std::cout<<"===== Lexer start =====\n";
+    #endif
+    auto tokens = lexer.generate_tokens();
     #ifdef DEBUG
     for (lexer::Token token: tokens) {
         std::cout<<token<<std::endl;
     }
+    std::cout<<"===== Lexer finished =====\n\n";
+    #endif
+    
+    parser::Parser parser(tokens);
+    #ifdef DEBUG
+    std::cout<<"===== Parser start =====\n";
+    #endif
+    auto ast = parser.block();
+    #ifdef DEBUG
+    std::cout<<"===== Parser finished =====\n\n";
     #endif
 }
