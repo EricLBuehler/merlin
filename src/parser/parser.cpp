@@ -65,7 +65,9 @@ class Parser {
         }
     }
 
-    std::optional<std::unique_ptr<Node>> atomic() { return std::nullopt; }
+    std::optional<std::unique_ptr<Node>> atomic() {
+        return std::nullopt;
+    }
 
     std::unique_ptr<Node> expr() {
         auto atomic = this->atomic();
