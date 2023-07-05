@@ -1,0 +1,5 @@
+Release generation:
+cmake -DCMAKE_BUILD_TYPE=Debug .
+
+Normal generation:
+cmake .
