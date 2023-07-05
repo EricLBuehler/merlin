@@ -68,12 +68,12 @@ class Parser {
     std::optional<std::unique_ptr<Node>> atomic() {
         switch (this->current.type) {
             case (lexer::TokenType::INTEGER): {
-
+                return std::nullopt;
             }
             default: {
+                return std::nullopt;
             }
         }
-        return std::nullopt;
     }
 
     std::unique_ptr<Node> expr() {
