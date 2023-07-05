@@ -72,6 +72,7 @@ class Parser {
         if (!atomic.has_value()) {
             TODO;
         }
+        
         auto left = *std::move(atomic);
         while (!this->is_current_eof()) {
             auto next = this->advance();
