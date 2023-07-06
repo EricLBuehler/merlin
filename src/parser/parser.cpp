@@ -68,7 +68,10 @@ class Parser {
     std::optional<std::unique_ptr<Node>> atomic() {
         switch (this->current.type) {
             case (lexer::TokenType::INTEGER): {
-                return std::nullopt;
+                auto data = (void*)new std::string(this->current.data);
+                return std::optional(std::unique_ptr<Node>{
+                    new Node(NodeType::INTEGER, data,
+                             [](void* d) { delete (std::string*)d; })});
             }
             default: {
                 return std::nullopt;
@@ -81,7 +84,10 @@ class Parser {
         if (!atomic.has_value()) {
             TODO;
         }
-        
+
+        std::cout << "ID: " << std::get<0>(atomic.value().get()->get_data())
+                  << std::endl;
+
         auto left = *std::move(atomic);
         while (!this->is_current_eof()) {
             auto next = this->advance();
