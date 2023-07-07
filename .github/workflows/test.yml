@@ -9,10 +9,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    needs: build
 
     steps:
     - uses: actions/checkout@v3
     - name: Install valgrind
       run: sudo apt-get install valgrind
-    - name: make
+    - name: Run valgrind
       run: valgrind ./merlin
