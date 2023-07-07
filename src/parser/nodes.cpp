@@ -23,4 +23,15 @@ class Node {
 
     std::tuple<NodeType, void*> get_data() { return {this->type, this->data}; }
 };
+
+enum BinaryType {
+    ADD,
+};
+
+struct BinaryNode {
+    std::unique_ptr<Node> left;
+    std::unique_ptr<Node> right;
+    BinaryType type;
+};
+
 }  // namespace parser

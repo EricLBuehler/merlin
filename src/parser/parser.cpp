@@ -82,23 +82,51 @@ class Parser {
     std::unique_ptr<Node> expr(Precedence precedence) {
         auto atomic = this->atomic();
         if (!atomic.has_value()) {
-            TODO;
+            UNIMPLEMENTED;
         }
-
-        std::cout << "ID: " << std::get<0>(atomic.value().get()->get_data())
-                  << std::endl;
 
         auto left = *std::move(atomic);
 
-        std::cout << "Atomic: " << this->current << std::endl;
         this->advance();
 
         while (!this->is_current_eof() && precedence < get_precedence()) {
-            std::cout << "Tok: " << this->current << std::endl;
-            auto next = this->advance();
+            switch (this->current.type) {
+                case (lexer::TokenType::PLUS): {
+                    left = binary_expr(get_precedence(), std::move(left), this->current.type);
+                }
+                default: {
+                    return left;
+                }
+            }
         }
 
         return left;
+    }
+
+    //Expressions
+    std::unique_ptr<Node> binary_expr(Precedence precedence, std::unique_ptr<Node> left, lexer::TokenType type) {
+        this->advance();
+
+        auto right = expr(precedence);
+        BinaryType binary_type;
+        switch (type) {
+            case (lexer::TokenType::PLUS): {
+                binary_type = BinaryType::ADD;
+                break;
+            }
+            default: {
+                UNREACHABLE;
+            }
+        }
+        auto binary = (void*)new BinaryNode {
+            std::move(left),
+            std::move(right),
+            binary_type,
+        };
+        
+        return std::unique_ptr<Node>{
+            new Node(NodeType::BINARY, binary,
+                        [](void* d) { delete (BinaryNode*)d; })};
     }
 
    public:
