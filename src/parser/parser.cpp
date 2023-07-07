@@ -60,7 +60,7 @@ class Parser {
     std::unique_ptr<Node> parse_statement() {
         switch (this->current.type) {
             default: {
-                return this->expr();
+                return this->expr(Precedence::LOWEST);
             }
         }
     }
@@ -79,7 +79,7 @@ class Parser {
         }
     }
 
-    std::unique_ptr<Node> expr() {
+    std::unique_ptr<Node> expr(Precedence precedence) {
         auto atomic = this->atomic();
         if (!atomic.has_value()) {
             TODO;
@@ -89,10 +89,15 @@ class Parser {
                   << std::endl;
 
         auto left = *std::move(atomic);
-        while (!this->is_current_eof()) {
+
+        std::cout << "Atomic: " << this->current << std::endl;
+        this->advance();
+
+        while (!this->is_current_eof() && precedence < get_precedence()) {
+            std::cout << "Tok: " << this->current << std::endl;
             auto next = this->advance();
-            std::cout << next << std::endl;
         }
+
         return left;
     }
 
