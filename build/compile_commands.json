@@ -1,8 +1,0 @@
-[
-{
-  "directory": "/home/ericbuehler/merlin/merlin_c/build",
-  "command": "/usr/bin/g++    -Wall -Wpedantic -O3 -std=gnu++20 -o CMakeFiles/merlin.dir/src/main.cpp.o -c /home/ericbuehler/merlin/merlin_c/src/main.cpp",
-  "file": "/home/ericbuehler/merlin/merlin_c/src/main.cpp",
-  "output": "CMakeFiles/merlin.dir/src/main.cpp.o"
-}
-]
