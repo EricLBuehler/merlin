@@ -92,7 +92,8 @@ class Parser {
         while (!this->is_current_eof() && precedence < get_precedence()) {
             switch (this->current.type) {
                 case (lexer::TokenType::PLUS): {
-                    left = binary_expr(get_precedence(), std::move(left), this->current.type);
+                    left = binary_expr(get_precedence(), std::move(left),
+                                       this->current.type);
                 }
                 default: {
                     return left;
@@ -103,8 +104,10 @@ class Parser {
         return left;
     }
 
-    //Expressions
-    std::unique_ptr<Node> binary_expr(Precedence precedence, std::unique_ptr<Node> left, lexer::TokenType type) {
+    // Expressions
+    std::unique_ptr<Node> binary_expr(Precedence precedence,
+                                      std::unique_ptr<Node> left,
+                                      lexer::TokenType type) {
         this->advance();
 
         auto right = expr(precedence);
@@ -118,15 +121,14 @@ class Parser {
                 UNREACHABLE;
             }
         }
-        auto binary = (void*)new BinaryNode {
+        auto binary = (void*)new BinaryNode{
             std::move(left),
             std::move(right),
             binary_type,
         };
-        
-        return std::unique_ptr<Node>{
-            new Node(NodeType::BINARY, binary,
-                        [](void* d) { delete (BinaryNode*)d; })};
+
+        return std::unique_ptr<Node>{new Node(
+            NodeType::BINARY, binary, [](void* d) { delete (BinaryNode*)d; })};
     }
 
    public:

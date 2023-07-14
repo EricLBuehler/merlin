@@ -4,13 +4,13 @@
 
 #include "termcolor/termcolor.hpp"
 
-#define UNIMPLEMENTED                                                            \
+#define UNIMPLEMENTED                                                   \
     throw std::runtime_error(std::string("Unimplemented code at ") +    \
                              std::string(__FILE__) + std::string(":") + \
                              std::to_string(__LINE__) + std::string("."))
-                             
-#define UNREACHABLE                                                            \
-    throw std::runtime_error(std::string("Unreachable code at ") +    \
+
+#define UNREACHABLE                                                     \
+    throw std::runtime_error(std::string("Unreachable code at ") +      \
                              std::string(__FILE__) + std::string(":") + \
                              std::to_string(__LINE__) + std::string("."))
 
