@@ -1,5 +1,5 @@
-Release generation:
-cmake -DCMAKE_BUILD_TYPE=Debug .
+Debug generation:
+cmake -DCMAKE_BUILD_TYPE=DBG .
 
-Normal generation:
+Release generation:
 cmake .
